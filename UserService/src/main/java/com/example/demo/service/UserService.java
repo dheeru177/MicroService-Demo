@@ -40,13 +40,13 @@ public class UserService {
 		List<User> newUser = new ArrayList<>();
 		for(User u : userList)
 		{
-			  Rating[] array = restTemplate.getForObject("http://localhost:9094/rating/getRatingByUserId/" + u.getUserId(), Rating[].class);
+			  Rating[] array = restTemplate.getForObject("http://Rating-SERVICE/rating/getRatingByUserId/" + u.getUserId(), Rating[].class);
 				List<Rating> ratList =  Arrays.stream(array).toList();
 				List<Rating> newRating = new ArrayList<>();
  				for(Rating r : ratList)
 				{
 					
-					Hotel  hotel = restTemplate.getForObject("http://localhost:9096/hotel/getHotelById/"+r.getHotelId(), Hotel.class);
+					Hotel  hotel = restTemplate.getForObject("http://HOTEL-SERVICE/hotel/getHotelById/"+r.getHotelId(), Hotel.class);
 					r.setHotel(hotel);			
 					newRating.add(r);
 				}
@@ -64,7 +64,7 @@ public class UserService {
 		 User user = userRepo.findById(userId).get();
 		
 		try {
-		  Rating[] array = restTemplate.getForObject("http://localhost:9094/rating/getRatingByUserId/" + userId, Rating[].class);
+		  Rating[] array = restTemplate.getForObject("http://Rating-SERVICE/rating/getRatingByUserId/" + userId, Rating[].class);
 	
 		  ArrayList<Rating> rsList = new ArrayList<>();
 		  
@@ -72,7 +72,7 @@ public class UserService {
 		  {
 			  
 			  
-		Hotel  hotel = restTemplate.getForObject("http://localhost:9096/hotel/getHotelById/"+r.getHotelId(), Hotel.class);
+		Hotel  hotel = restTemplate.getForObject("http://HOTEL-SERVICE/hotel/getHotelById/"+r.getHotelId(), Hotel.class);
 			 System.out.println(hotel.getHotelName());
 			 r.setHotel(hotel);
 			 rsList.add(r);
