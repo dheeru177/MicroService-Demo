@@ -12,6 +12,12 @@ public class Rating {
 	private int userId;
 	
 	private int hotelId;
+	
+	private Hotel hotel;
+
+	public Hotel getHotel() {
+		return hotel;
+	}
 
 	public int getRatingId() {
 		return ratingId;
@@ -51,6 +57,13 @@ public class Rating {
 
 	public void setHotelId(int hotelId) {
 		this.hotelId = hotelId;
+	}
+	
+	
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+		
 	}
 	
 	

@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name="Rating")
@@ -22,6 +23,7 @@ public class Rating {
 	private int userId;
 	
 	private int hotelId;
+	
 
 	public int getRatingId() {
 		return ratingId;
