@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,28 @@ public class UserService {
 
 	public List<User> getAllUsers() {
 		// TODO Auto-generated method stub
+		List<User> userList = userRepo.findAll();
 		
-		return userRepo.findAll();
+		List<User> newUser = new ArrayList<>();
+		for(User u : userList)
+		{
+			  Rating[] array = restTemplate.getForObject("http://localhost:9094/rating/getRatingByUserId/" + u.getUserId(), Rating[].class);
+				List<Rating> ratList =  Arrays.stream(array).toList();
+				List<Rating> newRating = new ArrayList<>();
+ 				for(Rating r : ratList)
+				{
+					
+					Hotel  hotel = restTemplate.getForObject("http://localhost:9096/hotel/getHotelById/"+r.getHotelId(), Hotel.class);
+					r.setHotel(hotel);			
+					newRating.add(r);
+				}
+				
+				u.setRating(newRating);
+				newUser.add(u);
+			
+			
+		}
+		return newUser;
 	}
 
 	public User getUserById(int userId) {
